@@ -1,0 +1,34 @@
+{
+  "name": "Ogame Galaxy Highscore",
+  "manifest_version": 2,
+  "description": "",
+  "version": "0.0.1",
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches":["https://*.ogame.gameforge.com/game/index.php?page=galaxy*"],
+      "css": ["galaxyhighscore.css"],
+      "js": ["galaxyhighscore.js"]
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "storage",
+    "notifications"
+  ],
+  "browser_action":  {
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    // Required.
+    "page": "options.html",
+    // Recommended.
+    "chrome_style": true,
+    // Not recommended; only provided for backwards compatibility,
+    // and will be unsupported in a future version of Chrome (TBD).
+    "open_in_tab": true
+  },
+  "web_accessible_resources": []
+}

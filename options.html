@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ogame Galaxy Highscroe Options</title>
+    <style>
+        body { padding: 10px; }
+        code {color: red; background-color: lightgray; }
+    </style>
+</head>
+
+<body>
+<h1>Ogame Galaxy Highscroe Options</h1>
+
+Notification Title:
+<input type="text" id="title" />
+<br>
+
+Extension Active:
+<input type="checkbox" id="isActive" />
+<br>
+
+Show ally ranks:
+<input type="checkbox" id="allyRanks" />
+<br>
+
+<hr>
+<h3>Style</h3>
+
+Show Highscore after Names:
+<input id="showHighscoreInGalaxyView" type="checkbox" />
+<br>
+
+Use original colors: (if no, it just will be grey)
+<input id="showOriginalColors" type="checkbox" />
+<br>
+
+<hr>
+<h3>Behavior</h3>
+Skip inactive (i) players:
+<input type="checkbox" id="skipInactive" />
+<br>
+
+Skip newbie (n) players:
+<input type="checkbox" id="skipNewbie" />
+<br>
+
+Skip vaction (v/u) players:
+<input type="checkbox" id="skipVacation" />
+<br>
+
+<h3>Texts</h3>
+Rank-Text for galaxy view:
+<input type="text" id="rankText" />
+<br>
+
+<div id="status"></div>
+<button id="save">Save</button>
+
+<script src="options.js"></script>
+</body>
+</html>
