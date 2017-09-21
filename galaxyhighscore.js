@@ -100,10 +100,8 @@ function showHighscores()
         {
             rank = rank.match(/\(([^)]+)\)/)[1];
         }
-        var originalCssClassList = tooltip.lastElementChild!== null ? (fieldToWriteIn.firstElementChild.tagName === 'A' ? fieldToWriteIn.firstElementChild.firstElementChild.classList : fieldToWriteIn.childNodes[3].firstElementChild.classList) : 'status_abbr_active';
 
         var newRank = document.createElement('span');
-        newRank.classList = originalCssClassList;
         newRank.classList.add('newRank');
         newRank.textContent = options.rankText+' '+rank;
         fieldToWriteIn.appendChild(newRank);
