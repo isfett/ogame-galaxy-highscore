@@ -75,21 +75,8 @@ function showHighscores()
     }
 
     arrayOf(allPlayersAndAllies())
-        .filter(function (playerOrAlly) {
-            const classList = playerOrAlly.parentNode.parentNode.classList;
-            return !classList.contains('newbie_filter') || options.skipNewbie === false
-        })
-        .filter(function (playerOrAlly) {
-            const classList = playerOrAlly.parentNode.parentNode.classList;
-            return !classList.contains('vacation_filter') || options.skipVacation === false
-        })
-        .forEach(function (playerOrAlly) {
-            var rank = document.querySelector('#playerName+li').innerText.replace(/.*\(|\).*/g, '');
-            if (playerOrAlly.getAttribute('rel')) {
-                rank = document.querySelector('#' + playerOrAlly.getAttribute('rel') + ' .rank a').innerText;
-            }
-            playerOrAlly.parentNode.appendChild(rankTag(options.rankText + ' ' + rank));
-        });
+        .filter(relevantPlayersAndAllies)
+        .forEach(putRankUnderPlayerOrAlly);
 
     recalcGalaxyTableHeight();
 }
@@ -111,6 +98,47 @@ function allPlayersAndAllies() {
         '.row:not(.empty_filter) .playername>:first-child' // finds all players
     ];
     return document.querySelectorAll(selectors.join(','));
+}
+
+const MARKER = {
+    NEWBIE: 'newbie_filter',
+    VACATION: 'vacation_filter'
+};
+
+/**
+ * @param {Node} playerOrAlly
+ * @returns {boolean}
+ */
+function relevantPlayersAndAllies(playerOrAlly) {
+    const playerClassList = playerOrAlly.parentNode.parentNode.classList;
+    return !isNewbieProtected(playerClassList) && !isVacationProtected(playerClassList);
+}
+
+/**
+ * @param {DOMTokenList} classList
+ * @returns {boolean}
+ */
+function isNewbieProtected(classList) {
+    return classList.contains(MARKER.NEWBIE) && options.skipNewbie;
+}
+
+/**
+ * @param {DOMTokenList} classList
+ * @returns {boolean}
+ */
+function isVacationProtected(classList) {
+    return classList.contains(MARKER.VACATION) && options.skipVacation;
+}
+
+/**
+ * @param {Node} playerOrAlly
+ */
+function putRankUnderPlayerOrAlly(playerOrAlly) {
+    var rank = document.querySelector('#playerName+li').innerText.replace(/.*\(|\).*/g, '');
+    if (playerOrAlly.getAttribute('rel')) {
+        rank = document.querySelector('#' + playerOrAlly.getAttribute('rel') + ' .rank a').innerText;
+    }
+    playerOrAlly.parentNode.appendChild(rankTag(options.rankText + ' ' + rank));
 }
 
 /**
