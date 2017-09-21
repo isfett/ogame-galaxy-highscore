@@ -122,7 +122,7 @@ function isVacationProtected(classList) {
 }
 
 /**
- * @param {Node} playerOrAlly
+ * @param {Node|Element} playerOrAlly
  */
 function putRankUnderPlayerOrAlly(playerOrAlly) {
     var rank = document.querySelector('#playerName+li').innerText.replace(/.*\(|\).*/g, '');
