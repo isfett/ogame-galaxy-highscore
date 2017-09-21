@@ -33,6 +33,9 @@ function start()
     }
 }
 
+/**
+ * @param {Event} e
+ */
 function triggeredByClick(e)
 {
     console.log('e',e);
@@ -46,24 +49,21 @@ function triggeredByClick(e)
     }
 }
 
+/**
+ * @param {Event} e
+ */
 function triggeredByKey(e)
 {
-    var triggeredKeys = [13, 37, 38, 39, 40];
-    for(var i = 0; i < triggeredKeys.length; i++)
-    {
-        var k = triggeredKeys[i];
-        if(e.which === k)
-        {
+    [13, 37, 38, 39, 40].forEach(function(triggerKey) {
+        if(e.which === triggerKey) {
             triggerWaitTable();
         }
-    }
+    });
 }
 
 function triggerWaitTable()
 {
-    window.setTimeout(function(){
-        showHighscores();
-    }, 500);
+    window.setTimeout(showHighscores, 500);
 }
 
 function showHighscores()
