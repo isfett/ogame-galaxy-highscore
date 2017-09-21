@@ -91,7 +91,7 @@ function clearOldRank(rank) {
 function allPlayersAndAllies() {
     const selectors = [
         '.row:not(.empty_filter) .allytag>:first-child', // finds all allies
-        '.row:not(.empty_filter) .playername>:first-child' // finds all players
+        '.row:not(.empty_filter) .playername>:first-child:not([rel=player99999])' // finds all players and filters destroyed planets
     ];
     return document.querySelectorAll(selectors.join(','));
 }
