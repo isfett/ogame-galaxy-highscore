@@ -82,14 +82,6 @@ function showHighscores()
 }
 
 /**
- * @param {NodeList} nodeList
- * @returns {Array.<Element|Node>}
- */
-function arrayOf(nodeList) {
-    return Array.prototype.slice.call(nodeList);
-}
-
-/**
  * @returns {NodeList}
  */
 function allPlayersAndAllies() {
@@ -157,4 +149,12 @@ function recalcGalaxyTableHeight()
     var presetHeaderFooterHeight = 112;
     var calculatedHeight = presetHeaderFooterHeight + document.querySelector('#galaxytable tbody').clientHeight;
     document.getElementById('galaxytable').style.height = calculatedHeight+'px';
+}
+
+/**
+ * @param {NodeList} nodeList
+ * @returns {Array.<Element|Node>}
+ */
+function arrayOf(nodeList) {
+    return Array.prototype.slice.call(nodeList);
 }
