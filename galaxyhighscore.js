@@ -74,53 +74,40 @@ function showHighscores()
         }
     }
 
-    arrayOf(document.querySelectorAll('#galaxytable .row')).forEach(function (row){
-        if(row.classList)
-        {
-            if(row.classList.contains('empty_filter') || (options.skipVacation && row.classList.contains('vacation_filter')) || (options.skipNewbie && row.classList.contains('newbie_filter')))
-            {
-                return;
+    arrayOf(allPlayersAndAllies())
+        .filter(function (playerOrAlly) {
+            const classList = playerOrAlly.parentNode.parentNode.classList;
+            return !classList.contains('newbie_filter') || options.skipNewbie === false
+        })
+        .filter(function (playerOrAlly) {
+            const classList = playerOrAlly.parentNode.parentNode.classList;
+            return !classList.contains('vacation_filter') || options.skipVacation === false
+        })
+        .forEach(function (playerOrAlly) {
+            var rank = document.querySelector('#playerName+li').innerText.replace(/.*\(|\).*/g, '');
+            if (playerOrAlly.getAttribute('rel')) {
+                rank = document.querySelector('#' + playerOrAlly.getAttribute('rel') + ' .rank a').innerText;
             }
-        }
-        var position = parseInt(row.childNodes[1].innerText);
-        var fieldToWriteIn = document.querySelector('.js_playerName'+position);
-        var tooltip = fieldToWriteIn.lastElementChild;
-        if(tooltip.classList && tooltip.classList.contains('status'))
-        {
-            if(fieldToWriteIn.innerText === '')
-            {
-                return;
-            }
-        }
-        var rank = tooltip.lastElementChild!==null ? tooltip.lastElementChild.firstElementChild.lastElementChild.innerText : document.querySelectorAll('#bar ul li')[1].innerText;
-        if(tooltip.lastElementChild === null)
-        {
-            rank = rank.match(/\(([^)]+)\)/)[1];
-        }
+            playerOrAlly.parentNode.appendChild(rankTag(options.rankText + ' ' + rank));
+        });
 
-        fieldToWriteIn.appendChild(rankTag(options.rankText + ' ' + rank));
-
-        if(options.allyRanks)
-        {
-            var allyFieldToWriteIn = document.querySelector('.js_allyTag'+position);
-            var allyTooltip = allyFieldToWriteIn.lastElementChild;
-            if(null!==allyTooltip) {
-                var allyRank = allyTooltip.lastElementChild.lastElementChild.firstElementChild.innerText;
-                allyRank = allyRank.substr(allyRank.indexOf(':') + 2);
-
-                allyFieldToWriteIn.appendChild(rankTag(options.rankText + ' ' + allyRank));
-            }
-        }
-    });
     recalcGalaxyTableHeight();
 }
 
 /**
  * @param {NodeList} nodeList
- * @returns {Array.<Node>}
+ * @returns {Array.<Element>}
  */
 function arrayOf(nodeList) {
     return Array.prototype.slice.call(nodeList);
+}
+
+function allPlayersAndAllies() {
+    const selectors = [
+        '.row:not(.empty_filter) .allytag>:first-child', // finds all allies
+        '.row:not(.empty_filter) .playername>:first-child' // finds all players
+    ];
+    return document.querySelectorAll(selectors.join(','));
 }
 
 /**
