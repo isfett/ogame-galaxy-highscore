@@ -64,21 +64,21 @@ function triggerWaitTable()
 
 function showHighscores()
 {
-    var oldRanks = document.querySelectorAll('.newRank');
-    if(oldRanks.length)
-    {
-        for(var i = 0; i < oldRanks.length; i++)
-        {
-            var oldRank = oldRanks[i];
-            oldRank.remove();
-        }
-    }
+    arrayOf(document.querySelectorAll('.newRank'))
+        .forEach(clearOldRank);
 
     arrayOf(allPlayersAndAllies())
         .filter(relevantPlayersAndAllies)
         .forEach(putRankUnderPlayerOrAlly);
 
     recalcGalaxyTableHeight();
+}
+
+/**
+ * @param {Node|{remove:function()}} rank
+ */
+function clearOldRank(rank) {
+    rank.remove();
 }
 
 /**
