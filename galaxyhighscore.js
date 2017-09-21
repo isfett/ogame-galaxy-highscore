@@ -96,12 +96,15 @@ function showHighscores()
 
 /**
  * @param {NodeList} nodeList
- * @returns {Array.<Element>}
+ * @returns {Array.<Element|Node>}
  */
 function arrayOf(nodeList) {
     return Array.prototype.slice.call(nodeList);
 }
 
+/**
+ * @returns {NodeList}
+ */
 function allPlayersAndAllies() {
     const selectors = [
         '.row:not(.empty_filter) .allytag>:first-child', // finds all allies
