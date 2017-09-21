@@ -1,4 +1,10 @@
-.newRank {
+span.newRank {
     clear: both;
-    display: block;
+    display: table;
+    margin: auto;
+    background: linear-gradient(#6e899e,#829caf);
+    border-radius: 3px;
+    color: #fff !important;
+    padding: 2px 3px;
+    line-height: 1;
 }
