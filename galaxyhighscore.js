@@ -101,10 +101,7 @@ function showHighscores()
             rank = rank.match(/\(([^)]+)\)/)[1];
         }
 
-        var newRank = document.createElement('span');
-        newRank.classList.add('newRank');
-        newRank.textContent = options.rankText+' '+rank;
-        fieldToWriteIn.appendChild(newRank);
+        fieldToWriteIn.appendChild(rankTag(options.rankText + ' ' + rank));
 
         if(options.allyRanks)
         {
@@ -114,14 +111,22 @@ function showHighscores()
                 var allyRank = allyTooltip.lastElementChild.lastElementChild.firstElementChild.innerText;
                 allyRank = allyRank.substr(allyRank.indexOf(':') + 2);
 
-                var newAllyRank = document.createElement('span');
-                newAllyRank.classList.add('newRank');
-                newAllyRank.textContent = options.rankText + ' ' + allyRank;
-                allyFieldToWriteIn.appendChild(newAllyRank);
+                allyFieldToWriteIn.appendChild(rankTag(options.rankText + ' ' + allyRank));
             }
         }
     }
     recalcGalaxyTableHeight();
+}
+
+/**
+ * @param {string} text
+ * @returns {Element}
+ */
+function rankTag(text) {
+    var rankTag = document.createElement('span');
+    rankTag.classList.add('newRank');
+    rankTag.textContent = text;
+    return rankTag;
 }
 
 function recalcGalaxyTableHeight()
