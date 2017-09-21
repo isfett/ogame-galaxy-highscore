@@ -74,15 +74,12 @@ function showHighscores()
         }
     }
 
-    var rows = document.querySelectorAll('#galaxytable .row');
-    for(i = 0; i < rows.length; i++)
-    {
-        var row = rows[i];
+    arrayOf(document.querySelectorAll('#galaxytable .row')).forEach(function (row){
         if(row.classList)
         {
             if(row.classList.contains('empty_filter') || (options.skipVacation && row.classList.contains('vacation_filter')) || (options.skipNewbie && row.classList.contains('newbie_filter')))
             {
-                continue;
+                return;
             }
         }
         var position = parseInt(row.childNodes[1].innerText);
@@ -92,7 +89,7 @@ function showHighscores()
         {
             if(fieldToWriteIn.innerText === '')
             {
-                continue;
+                return;
             }
         }
         var rank = tooltip.lastElementChild!==null ? tooltip.lastElementChild.firstElementChild.lastElementChild.innerText : document.querySelectorAll('#bar ul li')[1].innerText;
@@ -114,8 +111,16 @@ function showHighscores()
                 allyFieldToWriteIn.appendChild(rankTag(options.rankText + ' ' + allyRank));
             }
         }
-    }
+    });
     recalcGalaxyTableHeight();
+}
+
+/**
+ * @param {NodeList} nodeList
+ * @returns {Array.<Node>}
+ */
+function arrayOf(nodeList) {
+    return Array.prototype.slice.call(nodeList);
 }
 
 /**
