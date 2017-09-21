@@ -11,6 +11,10 @@ var defaultOptions = {
     'allyRanks': true
 };
 
+const MARKER = {
+    NEWBIE: 'newbie_filter',
+    VACATION: 'vacation_filter'
+};
 
 chrome.storage.sync.get(defaultOptions, function(storageOptions) {
     options = storageOptions;
@@ -91,11 +95,6 @@ function allPlayersAndAllies() {
     ];
     return document.querySelectorAll(selectors.join(','));
 }
-
-const MARKER = {
-    NEWBIE: 'newbie_filter',
-    VACATION: 'vacation_filter'
-};
 
 /**
  * @param {Node} playerOrAlly
